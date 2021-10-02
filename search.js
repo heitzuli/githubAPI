@@ -1,5 +1,14 @@
 let smileys;
 
+function getJSON(url) {
+    // Fetches from given URL
+    return fetch(url)
+        // Turns it into json
+        .then(function (response) {
+            return response.json();
+        })
+}
+
 function initialize() {
     (async () => {
         const searchField = document.getElementById('search');
