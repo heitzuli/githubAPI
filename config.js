@@ -1,4 +1,4 @@
 //URL for github smileys
-const APIurl = {
+const config = {
     baseURL:"https://api.github.com/"
 }
