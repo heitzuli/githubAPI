@@ -1,4 +1,4 @@
 //URL for github smileys
-const getSmileys = {
+const APIurl = {
     baseURL:"https://api.github.com/"
 }
