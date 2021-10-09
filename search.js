@@ -23,10 +23,17 @@ function displayImg(imgLink, elementId) {
     element.innerHTML = `<img src="${imgLink}"/>`;
 }
 
+function deleteImg(elementId) {
+    const element = document.getElementById(elementId);
+    element.innerHTML = '';
+}
+
 function search() {
     const searchTerm = document.getElementById('search').value;
     const foundIt = smileys.hasOwnProperty(searchTerm);
     if (foundIt) {
         displayImg(smileys[searchTerm], 'emoji');
+    } else {
+        deleteImg('emoji');
     }
 }
