@@ -18,18 +18,15 @@ function initialize() {
     })();
 }
 
-function createSmileysList(elementId, data) {
+function displayImg(imgLink, elementId) {
     const element = document.getElementById(elementId);
-    element.innerHTML = Object.keys(data)
-        .map(key => `${key} <img src="${data[key]}"/><br/>`).join('');
+    element.innerHTML = `<img src="${imgLink}"/>`;
 }
 
 function search() {
     const searchTerm = document.getElementById('search').value;
     const foundIt = smileys.hasOwnProperty(searchTerm);
-    console.log(searchTerm);
-    console.log(smileys.hasOwnProperty(searchTerm));
     if (foundIt) {
-        console.log(smileys[searchTerm]);
+        displayImg(smileys[searchTerm], 'emoji');
     }
 }
