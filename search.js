@@ -30,6 +30,6 @@ function search() {
     console.log(searchTerm);
     console.log(smileys.hasOwnProperty(searchTerm));
     if (foundIt) {
-        console.log('Found it!');
+        console.log(smileys[searchTerm]);
     }
 }
