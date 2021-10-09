@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <title>Awesome smileys</title>
 </head>
 <body>
     <h2 id="header">Type a name here</h2>
-    <input type="text" id="search" value="loading..." onkeyup="search()">
+    <div class="autocomplete" style="width:300px;">
+        <input type="text" id="search" value="loading..." onkeyup="search()">
+    </div>
+
     <div id="emoji"></div>
 
     <script src="config.js"></script>
     <script src="search.js"></script>
-    <script>initialize();</script>
+    <script src="autocomplete.js"></script>
+    <script>
+        (async () => {
+            const searchField = document.getElementById('search');
+            smileys = await getJSON(config.baseURL + 'emojis');
+            autocomplete(document.getElementById("search"), Object.keys(smileys));
+            searchField.disabled = false;
+            searchField.value = '';
+        })();
+    </script>
 
 </body>
 </html>

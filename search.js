@@ -9,15 +9,6 @@ function getJSON(url) {
         })
 }
 
-function initialize() {
-    (async () => {
-        const searchField = document.getElementById('search');
-        smileys = await getJSON(config.baseURL + 'emojis');
-        searchField.disabled = false;
-        searchField.value = '';
-    })();
-}
-
 function displayImg(imgLink, elementId) {
     const element = document.getElementById(elementId);
     element.innerHTML = `<img src="${imgLink}"/>`;
