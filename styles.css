@@ -2,8 +2,9 @@
 body {
     font: 16px Arial;
     display: flex;
-    background-image: url('images/Ligh background.jpg');
+    background-image: url("images/Vertical_Ligh background.jpg");
     background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .center {
