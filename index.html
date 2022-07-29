@@ -63,19 +63,24 @@
 
         createEventHTML = (gitHubEvent) => `<div>${gitHubEvent.created_at}: ${createSpecificEventHTML(gitHubEvent)}</div>`
 
+        createErrorHTML = (message) => `<div class="error">Could not load events: ${message}</div>`
+
         loadEvents = async() => {
             const gitHubUserName = document.getElementById('username').value;
+            const gitHubEventsField = document.getElementById('gitHubEvents');
+
             // get list from github
             const events = await getJSON(`${config.baseURL}/users/${gitHubUserName}/events`);
-            console.log(events);
-            // handle error somehow if there is one. Let's only handle 404 for now.
+            if (events.message) {
+                // handle error somehow if there is one. Let's only handle 404 for now.
+                gitHubEventsField.innerHTML = createErrorHTML(events.message);
+            } else {
 
             // otherwise show list
-            const gitHubEventsField = document.getElementById('gitHubEvents');
             gitHubEventsField.innerHTML = events
                 .map(event => createEventHTML(event))
                 .join(''); // not joining will use a comma as separator
-
+            }
         }
     </script>
 

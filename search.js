@@ -4,9 +4,8 @@ function getJSON(url) {
     // Fetches from given URL
     return fetch(url)
         // Turns it into json
-        .then(function (response) {
-            return response.json();
-        })
+        .then(response => response.json())
+        .catch(reason => reason.message)
 }
 
 function displayImg(imgLink, elementId) {
