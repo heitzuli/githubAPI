@@ -20,6 +20,13 @@
     </div>
 
     <div id="emoji"></div>
+
+    <h1>List user events</h1>
+    <p>Explain how</p>
+    <label for="username">Github username</label><input type="text" id="username"/>
+    <button onclick="loadEvents()">Load events</button>
+
+    <div id="githubEvents"></div>
 </div>
 
 
@@ -29,11 +36,25 @@
     <script>
         (async () => {
             const searchField = document.getElementById('search');
-            smileys = await getJSON(config.baseURL + 'emojis');
+            smileys = await getJSON(config.baseURL + '/emojis');
             autocomplete(document.getElementById("search"), Object.keys(smileys));
             searchField.disabled = false;
             searchField.value = '';
         })();
+
+        loadEvents = async() => {
+            // get list from github
+            const events = await getJSON(`${config.baseURL}/users/heitzuli/events`);
+            console.log(events);
+            // handle error somehow if there is one. Let's only handle 404 for now.
+
+            // otherwise show list
+            const githubEventsField = document.getElementById('githubEvents');
+            githubEventsField.innerHTML = events
+                .map(event => `<div>${event.created_at}: ${event.type}</div>`)
+                .join(''); // not joining will use a comma as separator
+
+        }
     </script>
 
 </body>
