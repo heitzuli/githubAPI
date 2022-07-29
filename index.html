@@ -37,7 +37,7 @@
         (async () => {
             const searchField = document.getElementById('search');
             smileys = await getJSON(config.baseURL + '/emojis');
-            autocomplete(document.getElementById("search"), Object.keys(smileys));
+            autocomplete(document.getElementById('search'), Object.keys(smileys));
             searchField.disabled = false;
             searchField.value = '';
         })();
@@ -55,8 +55,8 @@
 
         createSpecificEventHTML = (gitHubEvent) => {
             switch (gitHubEvent.type) {
-                case "PushEvent": return createPushEventHTML(gitHubEvent);
-                case "CreateEvent": return createCreateEventHTML(gitHubEvent);
+                case 'PushEvent': return createPushEventHTML(gitHubEvent);
+                case 'CreateEvent': return createCreateEventHTML(gitHubEvent);
                 default: return createGenericEventHTML(gitHubEvent);
             }
         }
@@ -64,8 +64,9 @@
         createEventHTML = (gitHubEvent) => `<div>${gitHubEvent.created_at}: ${createSpecificEventHTML(gitHubEvent)}</div>`
 
         loadEvents = async() => {
+            const gitHubUserName = document.getElementById('username').value;
             // get list from github
-            const events = await getJSON(`${config.baseURL}/users/heitzuli/events`);
+            const events = await getJSON(`${config.baseURL}/users/${gitHubUserName}/events`);
             console.log(events);
             // handle error somehow if there is one. Let's only handle 404 for now.
 
