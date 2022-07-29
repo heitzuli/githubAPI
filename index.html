@@ -2,38 +2,53 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="tabs.css">
     <meta charset="UTF-8">
     <title>Awesome smileys</title>
 </head>
 <body>
-<div class="center">
-    <h1>Search an emoji</h1>
-    <p>
-        Hi there! <br>
-        Welcome to my first ever, completed, project done using HTML, CSS and JavaScript. <br>
-        In the search field below you can search for emojies used on the GitHub page. <br>
-        Go on, try it!
-    </p>
-    <h2 id="header">Search here </h2>
-    <div class="autocomplete" style="width:300px;">
-        <input type="text" id="search" value="loading..." onkeyup="search()">
+    <div class="center">
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Events')" id="defaultOpen">Events</button>
+            <button class="tablinks" onclick="openTab(event, 'Emojis')">Emojis</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="Emojis" class="tabcontent">
+            <h3>Search an emoji</h3>
+            <p>
+                Hi there! <br>
+                Welcome to my first ever, completed, project done using HTML, CSS and JavaScript. <br>
+                In the search field below you can search for emojies used on the GitHub page. <br>
+                Go on, try it!
+            </p>
+            <h3 id="header">Search here </h3>
+            <div class="autocomplete" style="width:300px;">
+                <input type="text" id="search" value="loading..." onkeyup="search()">
+            </div>
+
+            <div id="emoji"></div>
+        </div>
+
+        <div id="Events" class="tabcontent">
+            <h3>List user events</h3>
+            <p>Explain how</p>
+            <label for="username">Github username</label><input type="text" id="username"/>
+            <button onclick="loadEvents()">Load events</button>
+
+            <div id="gitHubEvents"></div>
+        </div>
     </div>
-
-    <div id="emoji"></div>
-
-    <h1>List user events</h1>
-    <p>Explain how</p>
-    <label for="username">Github username</label><input type="text" id="username"/>
-    <button onclick="loadEvents()">Load events</button>
-
-    <div id="gitHubEvents"></div>
-</div>
-
 
     <script src="config.js"></script>
     <script src="search.js"></script>
+    <script src="tabs.js"></script>
     <script src="autocomplete.js"></script>
     <script>
+        // clicks on the default tab so it will be shown (see tabs.js)
+        document.getElementById("defaultOpen").click();
+
         (async () => {
             const searchField = document.getElementById('search');
             smileys = await getJSON(config.baseURL + '/emojis');
