@@ -26,7 +26,7 @@
     <label for="username">Github username</label><input type="text" id="username"/>
     <button onclick="loadEvents()">Load events</button>
 
-    <div id="githubEvents"></div>
+    <div id="gitHubEvents"></div>
 </div>
 
 
@@ -42,6 +42,27 @@
             searchField.value = '';
         })();
 
+        createRepoHTML = (repo) => `<a href="${config.gitHubURL}/${repo.name}">${repo.name}</a>`;
+
+        // event.type = PushEvent
+        createPushEventHTML = (gitHubEvent) => `Pushed to ${createRepoHTML(gitHubEvent.repo)}`;
+
+        // event.type = CreateEvent
+        createCreateEventHTML = (gitHubEvent) => `Created a ${gitHubEvent.payload.ref_type}`;
+
+        // All other types
+        createGenericEventHTML = (gitHubEvent) => `${gitHubEvent.type}`
+
+        createSpecificEventHTML = (gitHubEvent) => {
+            switch (gitHubEvent.type) {
+                case "PushEvent": return createPushEventHTML(gitHubEvent);
+                case "CreateEvent": return createCreateEventHTML(gitHubEvent);
+                default: return createGenericEventHTML(gitHubEvent);
+            }
+        }
+
+        createEventHTML = (gitHubEvent) => `<div>${gitHubEvent.created_at}: ${createSpecificEventHTML(gitHubEvent)}</div>`
+
         loadEvents = async() => {
             // get list from github
             const events = await getJSON(`${config.baseURL}/users/heitzuli/events`);
@@ -49,9 +70,9 @@
             // handle error somehow if there is one. Let's only handle 404 for now.
 
             // otherwise show list
-            const githubEventsField = document.getElementById('githubEvents');
-            githubEventsField.innerHTML = events
-                .map(event => `<div>${event.created_at}: ${event.type}</div>`)
+            const gitHubEventsField = document.getElementById('gitHubEvents');
+            gitHubEventsField.innerHTML = events
+                .map(event => createEventHTML(event))
                 .join(''); // not joining will use a comma as separator
 
         }
