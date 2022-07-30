@@ -65,6 +65,9 @@
         // event.type = CreateEvent
         createCreateEventHTML = (gitHubEvent) => `Created a ${gitHubEvent.payload.ref_type}`;
 
+        // WatchEvent
+        createWatchEventHTML = (gitHubEvent) => `Starred ${createRepoHTML(gitHubEvent.repo)}`;
+
         // All other types
         createGenericEventHTML = (gitHubEvent) => `${gitHubEvent.type}`
 
@@ -72,6 +75,7 @@
             switch (gitHubEvent.type) {
                 case 'PushEvent': return createPushEventHTML(gitHubEvent);
                 case 'CreateEvent': return createCreateEventHTML(gitHubEvent);
+                case 'WatchEvent': return createWatchEventHTML(gitHubEvent);
                 default: return createGenericEventHTML(gitHubEvent);
             }
         }
