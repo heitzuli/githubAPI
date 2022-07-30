@@ -10,7 +10,7 @@ getJSON = (url) => {
 
 displayImg = (imgLink, elementId) => {
     const element = document.getElementById(elementId);
-    element.innerHTML = `<img src="${imgLink}"/>`;
+    element.innerHTML = `<img src="${imgLink}" alt="GitHub Emoji"/>`;
 }
 
 deleteImg = (elementId) => {
