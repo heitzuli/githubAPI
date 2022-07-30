@@ -1,6 +1,6 @@
 let smileys;
 
-function getJSON(url) {
+getJSON = (url) => {
     // Fetches from given URL
     return fetch(url)
         // Turns it into json
@@ -8,17 +8,17 @@ function getJSON(url) {
         .catch(reason => reason.message)
 }
 
-function displayImg(imgLink, elementId) {
+displayImg = (imgLink, elementId) => {
     const element = document.getElementById(elementId);
     element.innerHTML = `<img src="${imgLink}"/>`;
 }
 
-function deleteImg(elementId) {
+deleteImg = (elementId) => {
     const element = document.getElementById(elementId);
     element.innerHTML = '';
 }
 
-function search() {
+search = () => {
     const searchTerm = document.getElementById('search').value;
     const foundIt = smileys.hasOwnProperty(searchTerm);
     if (foundIt) {
@@ -27,3 +27,11 @@ function search() {
         deleteImg('emoji');
     }
 }
+
+(async () => {
+    const searchField = document.getElementById('search');
+    smileys = await getJSON(config.baseURL + '/emojis');
+    autocomplete(document.getElementById('search'), Object.keys(smileys));
+    searchField.disabled = false;
+    searchField.value = '';
+})();
